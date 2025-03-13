@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Products from './components/Products';
 import Profile from './components/Profile';
 import Ticket from './components/Ticket';
+import User from './components/User';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
             <li>
               <Link to="/ticket">Ticket</Link>
             </li>
+            <li>
+              <Link to="/user">User</Link>
+            </li>
           </ul>
         </nav>
 
@@ -32,6 +36,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/ticket" element={<Ticket />} />
+          <Route path="/user" element={<User />} />
         </Routes>
       </div>
     </Router>
