@@ -29,6 +29,10 @@ app.delete('/delete/user/:id', async (req, res) => {
     res.json(await db.delete(req.params.id, 'user'))
 })
 
+app.put('/update/user/:id', async (req, res) => {
+    res.json(await db.update(req.params.id, req.body, 'user'))
+})
+
 
 
 app.listen(port, () => {

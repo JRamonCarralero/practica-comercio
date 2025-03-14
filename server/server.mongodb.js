@@ -6,7 +6,8 @@ const database = 'comercio'
 export const db = {
     create: createItem,
     get: getItems,
-    delete: deleteItem
+    delete: deleteItem,
+    update: updateItem
 }
 
 async function createItem(item, collection) {
@@ -34,4 +35,13 @@ async function getItems(filter, collection) {
     const returnValue = await itemsCollection.deleteOne({ _id: new ObjectId(id) });
     console.log('db deleteItem', returnValue, id)
     return id
+  }
+
+  async function updateItem(id, updates, collection) {
+    const client = new MongoClient(URI);
+    const rugbyleagueDB = client.db(database);
+    const itemsCollection = rugbyleagueDB.collection(collection);
+    const returnValue = await itemsCollection.updateOne({ _id: new ObjectId(id) }, { $set: updates });
+    console.log('db updateItem', returnValue, updates)
+    return returnValue
   }

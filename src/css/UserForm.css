@@ -36,4 +36,8 @@
     width: 400px;
     margin: 10px auto;
     padding: 5px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

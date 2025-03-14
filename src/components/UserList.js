@@ -14,12 +14,12 @@ function UserList(props) {
             </thead>
             <tbody>
                 {props.users.map((user) => (
-                    <tr className="table-row" key={user.id}>
+                    <tr className="table-row" key={user._id}>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
                         <td className="td-btn">
-                            <button className="table-btn" onClick={() => console.log(user)}>✎</button>
+                            <button className="table-btn" onClick={() => props.onEditUser(user)}>✎</button>
                             <button className="table-btn" onClick={() => props.onRemoveUser(user._id)}>🗑</button>
                         </td>
                     </tr>

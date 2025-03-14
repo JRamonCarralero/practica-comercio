@@ -1,27 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/UserForm.css";
 
 function UserForm(props) {
-    const [user, setUser] = useState({
-        _id: "",
-        name: "",
-        email: "",
-        password: "",
-        role: "user"
-    });
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        props.onAddUser(user);
-
-        setUser({
-            _id: "",
-            name: "",
-            email: "",
-            password: "",
-            role: "user"
-        })
+        props.onAddUser();
     };
 
     return (
@@ -29,16 +13,16 @@ function UserForm(props) {
             <input
                 type="hidden"
                 name="_id"
-                value={user._id}
-                onChange={(e) => setUser({ ...user, _id: e.target.value })}
+                value={props.user._id}
+                onChange={(e) => props.onSetUser({ ...props.user, _id: e.target.value })}
             />
             <div className="form-group">
                 <label htmlFor="name">Nombre</label>
                 <input
                     type="text"
                     name="name"
-                    value={user.name}
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    value={props.user.name}
+                    onChange={(e) => props.onSetUser({ ...props.user, name: e.target.value })}
                     placeholder="Name"
                 />
             </div>
@@ -47,8 +31,8 @@ function UserForm(props) {
                 <input
                     type="email"
                     name="email"
-                    value={user.email}
-                    onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    value={props.user.email}
+                    onChange={(e) => props.onSetUser({ ...props.user, email: e.target.value })}
                     placeholder="Email"
                 />
             </div>
@@ -57,8 +41,8 @@ function UserForm(props) {
                 <input
                     type="password"
                     name="password"
-                    value={user.password}
-                    onChange={(e) => setUser({ ...user, password: e.target.value })}
+                    value={props.user.password}
+                    onChange={(e) => props.onSetUser({ ...props.user, password: e.target.value })}
                     placeholder="Password"
                 />
             </div>
@@ -66,8 +50,8 @@ function UserForm(props) {
                 <label htmlFor="role">Rol</label>
                 <select
                     name="role"
-                    value={user.role}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    value={props.user.role}
+                    onChange={(e) => props.onSetUser({ ...props.user, role: e.target.value })}
                 >
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
