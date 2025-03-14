@@ -34,6 +34,21 @@ app.put('/update/user/:id', async (req, res) => {
 })
 
 
+// Login //
+
+app.post('/login', async (req, res) => {
+    const user = await db.loginUser(req.body)
+    if (user) {
+        // TODO: use OAuth2
+        // ...
+        // Simulation of authentication (OAuth2)
+        user.token = '123456'
+        // Remove password
+        delete user.password
+    }
+    res.json(user)
+})
+
 
 app.listen(port, () => {
     console.log(`Comercio is listening on port ${port}`)

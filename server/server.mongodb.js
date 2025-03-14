@@ -7,7 +7,8 @@ export const db = {
     create: createItem,
     get: getItems,
     delete: deleteItem,
-    update: updateItem
+    update: updateItem,
+    loginUser: loginUser
 }
 
 /**
@@ -19,8 +20,8 @@ export const db = {
  */
 async function createItem(item, collection) {
     const client = new MongoClient(URI);
-    const rugbyleagueDB = client.db(database);
-    const itemsCollection = rugbyleagueDB.collection(collection);
+    const comercioDB = client.db(database);
+    const itemsCollection = comercioDB.collection(collection);
     const returnValue = await itemsCollection.insertOne(item);
     console.log('db createItem', returnValue, item._id)
     return item
@@ -36,8 +37,8 @@ async function createItem(item, collection) {
  */
 async function getItems(filter, collection) {
     const client = new MongoClient(URI);
-    const rugbyleagueDB = client.db(database);
-    const itemsCollection = rugbyleagueDB.collection(collection);
+    const comercioDB = client.db(database);
+    const itemsCollection = comercioDB.collection(collection);
     console.log('filter, ', filter)
     const response = await itemsCollection.find(filter).toArray()
     return response;
@@ -52,8 +53,8 @@ async function getItems(filter, collection) {
  */
   async function deleteItem(id, collection) {
     const client = new MongoClient(URI);
-    const rugbyleagueDB = client.db(database);
-    const itemsCollection = rugbyleagueDB.collection(collection);
+    const comercioDB = client.db(database);
+    const itemsCollection = comercioDB.collection(collection);
     const returnValue = await itemsCollection.deleteOne({ _id: new ObjectId(id) });
     console.log('db deleteItem', returnValue, id)
     return id
@@ -69,9 +70,23 @@ async function getItems(filter, collection) {
  */
   async function updateItem(id, updates, collection) {
     const client = new MongoClient(URI);
-    const rugbyleagueDB = client.db(database);
-    const itemsCollection = rugbyleagueDB.collection(collection);
+    const comercioDB = client.db(database);
+    const itemsCollection = comercioDB.collection(collection);
     const returnValue = await itemsCollection.updateOne({ _id: new ObjectId(id) }, { $set: updates });
     console.log('db updateItem', returnValue, updates)
     return returnValue
+  }
+
+/**
+ * Finds a user in the 'usuarios' collection in the 'comercio' database given
+ * an email and password.
+ *
+ * @param {{email: string, password: string}} data - The data to query the user.
+ * @returns {Promise<object>} The user object if found, null otherwise.
+ */
+  async function loginUser({email, password}) {
+    const client = new MongoClient(URI);
+    const comercioDB = client.db(database);
+    const usersCollection = comercioDB.collection('user');
+    return await usersCollection.findOne({ email, password })
   }
