@@ -10,27 +10,30 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
+      <header className='app-header'>
+        <h1 className='app-title'>Mi Comercio</h1>
+        <nav className='app-nav'>
+          <ul className='app-nav-list'>
+            <li className='app-nav-item'>
               <Link to="/">Login</Link>
             </li>
-            <li>
+            <li className='app-nav-item'>
               <Link to="/products">Products</Link>
             </li>
-            <li>
+            <li className='app-nav-item'>
               <Link to="/profile">Profile</Link>
             </li>
-            <li>
+            <li className='app-nav-item'>
               <Link to="/ticket">Ticket</Link>
             </li>
-            <li>
+            <li className='app-nav-item'>
               <Link to="/user">User</Link>
             </li>
           </ul>
         </nav>
-
+      </header>
+      
+      <div className='app-content'>        
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/products" element={<Products />} />

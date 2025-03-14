@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserForm from "./UserForm";
 import UserList from "./UserList";
 import { getAPIData } from "../utils/utils";
+import "../css/User.css";
 
 function User() {
     const dbUsers = async () => {
@@ -12,9 +13,22 @@ function User() {
     const [users, setUsers] = useState([]);
 
     const addUser = async (user) => {
-        const newUser = await getAPIData('http://localhost:3333/create/user', 'POST', JSON.stringify(user));
-        setUsers([newUser, ...users]);
+        if (user._id) {
+            updateUser(user);
+        } else {
+            createUser(user);
+        }
     };
+
+    const createUser = async (user) => {
+        console.log('create user', user);
+        //const newUser = await getAPIData('http://localhost:3333/create/user', 'POST', JSON.stringify(user));
+        //setUsers([newUser, ...users]);
+    }
+
+    const updateUser = async (user) => {
+        console.log('update user', user);
+    }
 
     const removeUser = async (id) => {
         await getAPIData(`http://localhost:3333/delete/user/${id}`, 'DELETE');
@@ -26,8 +40,8 @@ function User() {
     }, []);
 
     return (
-        <div>
-            <h1>Usuarios</h1>
+        <div className="user-container">
+            <h2 className="user-title">Usuarios</h2>
             <UserForm onAddUser={addUser} />
             <UserList users={users} onRemoveUser={removeUser} />
         </div>

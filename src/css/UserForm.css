@@ -1,0 +1,39 @@
+.user-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px auto;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+.form-group {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+
+    label {
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    select {
+        width: 100%;
+    }
+}
+
+.submit-btn {
+    width: 400px;
+    margin: 10px auto;
+    padding: 5px;
+}
