@@ -1,6 +1,14 @@
 import React from "react";
 import "../css/UserList.css";
 
+/**
+ * Renders a table displaying a list of users with options to edit or remove each user.
+ *
+ * @param {Object} props - The properties object.
+ * @param {Array} props.users - An array of user objects to display.
+ * @param {function} props.onEditUser - Function to call when editing a user.
+ * @param {function} props.onRemoveUser - Function to call when removing a user.
+ */
 function UserList(props) {
     return (
         <table className="user-table" id="user-table">

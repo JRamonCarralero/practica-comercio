@@ -1,6 +1,14 @@
 import { HttpError } from '../classes/HttpError.js'
 import { simpleFetch } from '../lib/simpleFetch.js'
 
+/**
+ * Get data from API
+ * @param {string} apiURL
+ * @param {string} [method='GET']
+ * @param {Object} [data]
+ * @returns {Promise<any>}
+ * @throws {HttpError} If the HTTP response is not ok.
+ */
 export async function getAPIData(apiURL, method = 'GET', data) {
     let apiData
   
