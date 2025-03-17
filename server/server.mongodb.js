@@ -8,6 +8,7 @@ export const db = {
     get: getItems,
     delete: deleteItem,
     update: updateItem,
+    findById: findById,
     loginUser: loginUser
 }
 
@@ -75,6 +76,22 @@ async function getItems(filter, collection) {
     const returnValue = await itemsCollection.updateOne({ _id: new ObjectId(id) }, { $set: updates });
     console.log('db updateItem', returnValue, updates)
     return returnValue
+  }
+
+/**
+ * Finds a single item from the specified collection in the 'comercio' database
+ * that matches the given filter.
+ *
+ * @param {object} filter - The filter to apply to find the item.
+ * @param {string} collection - The collection to search the item in.
+ * @returns {Promise<object | null>} The found item object, or null if no item matches the filter.
+ */
+  async function findById(filter, collection) {
+    const client = new MongoClient(URI);
+    const rugbyleagueDB = client.db(database);
+    const itemsCollection = rugbyleagueDB.collection(collection);
+    const response = await itemsCollection.findOne(filter)
+    return response;
   }
 
 /**

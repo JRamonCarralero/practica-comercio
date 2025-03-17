@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { db } from "./server.mongodb.js"
-//import { ObjectId } from "mongodb"
+import { ObjectId } from "mongodb"
 import cors from 'cors';
 
 const app = express();
@@ -31,6 +31,21 @@ app.delete('/delete/user/:id', async (req, res) => {
 
 app.put('/update/user/:id', async (req, res) => {
     res.json(await db.update(req.params.id, req.body, 'user'))
+})
+
+app.put('/update/userpwd/:id', async (req, res) => {
+    const user = await db.findById({ _id: new ObjectId(req.params.id) }, 'user')
+    if (user) {
+        if (user.password === req.body.oldPwd) {
+            await db.update(req.params.id, { password: req.body.newPwd }, 'user')
+            res.json('OK')
+            return
+        } else {
+            res.json('WRONG PASSWORD')
+        }
+    } else {
+        res.json('WRONG USER')
+    }
 })
 
 
