@@ -20,8 +20,8 @@ function User() {
      * @returns {Promise<Array>} A promise that resolves to an array of user objects.
      */
     const dbUsers = async () => {
-        const users = await getAPIData('http://localhost:3333/read/users');
-        return users
+        const usersDB = await getAPIData('http://localhost:3333/read/users');
+        return usersDB
     };
 
     const [user, setUser] = useState({
@@ -40,7 +40,7 @@ function User() {
      * @async
      * @returns {Promise<void>}
      */
-    const addUser = async () => {
+    const addUser = () => {
         if (user._id) {
             updateUser();
         } else {
