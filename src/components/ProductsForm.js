@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/Products.css";
 
 function ProductsForm({ product, onSetProduct, onAddProduct }) {
 
@@ -41,6 +42,7 @@ function ProductsForm({ product, onSetProduct, onAddProduct }) {
                     placeholder="Description"
                     value={product.description}
                     onChange={(e) => onSetProduct({...product, description: e.target.value})}
+                    rows="4"
                 />
             </div>
             <button type="submit" className="submit-btn" >Guardar</button>

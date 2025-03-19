@@ -2,7 +2,7 @@ import React from "react";
 
 function ProductsForm({ products, onEditProduct, onRemoveProduct }) {
     return (
-        <table className="product-table" id="product-table">
+        <table className="products-table" id="products-table">
             <thead>
                 <tr className="table-header-row">
                     <th className="th">Nombre</th>
@@ -14,7 +14,7 @@ function ProductsForm({ products, onEditProduct, onRemoveProduct }) {
                 {products.map((product) => (
                     <tr className="table-row" key={product._id}>
                         <td>{product.name}</td>
-                        <td>{product.price}</td>
+                        <td>{product.price} €</td>
                         <td className="td-btn">
                             <button className="table-btn" onClick={() => onEditProduct(product)}>✎</button>
                             <button className="table-btn" onClick={() => onRemoveProduct(product._id)}>🗑</button>

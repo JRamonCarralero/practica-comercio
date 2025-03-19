@@ -48,6 +48,24 @@ app.put('/update/userpwd/:id', async (req, res) => {
     }
 })
 
+// Products //
+
+app.get('/read/products', async (req, res) => {
+    res.json(await db.get({}, 'product'))
+})
+
+app.post('/create/product', async (req, res) => {
+    res.json(await db.create(req.body, 'product'))
+})
+
+app.delete('/delete/product/:id', async (req, res) => {
+    res.json(await db.delete(req.params.id, 'product'))
+})
+
+app.put('/update/product/:id', async (req, res) => {
+    res.json(await db.update(req.params.id, req.body, 'product'))
+})
+
 
 // Login //
 

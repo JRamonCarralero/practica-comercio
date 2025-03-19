@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAPIData } from "../utils/utils";
 import ProductsForm from "./ProductsForm";
 import ProductsList from "./ProductsList";
-//import "../css/Products.css";
+import "../css/Products.css";
 
 function Products() {
 
@@ -28,13 +28,17 @@ function Products() {
     };
 
     const createProduct = async () => {
-        const newProduct = await getAPIData('http://localhost:3333/create/product', 'POST', JSON.stringify(product));
+        const prod = {...product};
+        delete prod._id;
+        const newProduct = await getAPIData('http://localhost:3333/create/product', 'POST', JSON.stringify(prod));
         setProducts([newProduct, ...products]);
         clearProduct();
     };
 
     const updateProduct = async () => {
-        await getAPIData(`http://localhost:3333/update/product/${product._id}`, 'PUT', JSON.stringify(product));
+        const prod = {...product};
+        delete prod._id;
+        await getAPIData(`http://localhost:3333/update/product/${product._id}`, 'PUT', JSON.stringify(prod));
         setProducts(products.map(p => p._id === product._id ? product : p));
         clearProduct();
     };
