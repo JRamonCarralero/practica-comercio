@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import { getAPIData } from "../utils/utils";
+import { useUserContext } from "../context/UserProvider";
 import "../css/Login.css";
 
 /**
@@ -13,6 +14,8 @@ import "../css/Login.css";
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { loginUser } = useUserContext();
 
     /**
      * Handles the form submission event.
@@ -31,6 +34,7 @@ function Login() {
         }
         const user = await getAPIData('http://localhost:3333/login', 'POST', JSON.stringify(data));
         sessionStorage.setItem('user', JSON.stringify(user));
+        loginUser(user);
     };
 
     return (

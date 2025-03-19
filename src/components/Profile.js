@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { redirect } from "react-router-dom";
 import { getAPIData } from "../utils/utils";
+import { useUserContext } from "../context/UserProvider";
 import "../css/Profile.css";
 
 /**
@@ -19,6 +20,9 @@ function Profile() {
     const [newPwd, setNewPwd] = useState('');
     const [repeatPwd, setRepeatPwd] = useState('');
 
+    const { contextUser, loginUser } = useUserContext();
+    console.log('contextUser', contextUser);
+
     /**
      * Handles the form submission event for the user profile edit form.
      * Prevents the default form submission behavior, updates the user
@@ -36,6 +40,7 @@ function Profile() {
 
         await getAPIData(`http://localhost:3333/update/user/${user._id}`, 'PUT', JSON.stringify(data));
         sessionStorage.setItem('user', JSON.stringify(user));
+        loginUser(user);
     }
 
     /**
