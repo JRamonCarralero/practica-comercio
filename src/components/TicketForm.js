@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
 function TicketForm(props) {
 
-    const [ticketLine, setTicketLine] = useState({});
+    
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.onAddTicketLine();
+    };
 
     return (
-        <form className="ticket-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="ticket-form" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="product">Ticket</label>
                 <select 
                     name="product"
-                    value={ticketLine.product}
-                    onChange={(e) => setTicketLine({...ticketLine, product: e.target.value})}
+                    value={props.ticketLine.product}
+                    onChange={(e) => props.onSetTicketLine({product: e.target.value, qty: 1})}
                 >
                     <option value="">Select a product</option>
                     {props.products.map((product) => (
-                        <option key={product._id} value={product}>{product.name}</option>
+                        <option key={product._id} value={product._id}>{product.name}</option>
                     ))}
                 </select>
             </div>
@@ -25,8 +30,8 @@ function TicketForm(props) {
                     type="number"
                     name="qty"
                     placeholder="Cantidad"
-                    value={ticketLine.qty}
-                    onChange={(e) => setTicketLine({...ticketLine, qty: e.target.value})}
+                    value={props.ticketLine.qty}
+                    onChange={(e) => props.onSetTicketLine({...props.ticketLine, qty: e.target.value})}
                 />
             </div>
             <button className="submit-btn" type="submit">Añadir</button>

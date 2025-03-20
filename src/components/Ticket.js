@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAPIData } from "../utils/utils";
 import { useUserContext } from "../context/UserProvider";
 import TicketForm from "./TicketForm";
-import "./Ticket.css";
+import "../css/Ticket.css";
 
 function Ticket() {
 
@@ -11,20 +11,43 @@ function Ticket() {
         return productsDB;
     }
 
-    const [product, setProduct] = useState({});
+    const createDate = () => {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        const fecha = `${year}-${month}-${day}`;
+        const hora = `${hours}:${minutes}`;
+        setFecha(fecha);
+        setHora(hora);
+    };
+
+    //const [product, setProduct] = useState({});
+    const [ticketLine, setTicketLine] = useState({
+        product: "",
+        qty: 1
+    });
     const [products, setProducts] = useState([]);
-    const [selectedProducts, setSelectedProducts] = useState([]);
+    //const [selectedProducts, setSelectedProducts] = useState([]);
     const [fecha, setFecha] = useState('');
     const [hora, setHora] = useState('');
 
     const { contextUser } = useUserContext();
 
+    const addTicketLine = () => {
+        const data = { ...ticketLine,
+            user: contextUser._id,
+            date: fecha,
+            time: hora
+         };
+        console.log(data);
+    };
+
     useEffect(() => {
-        const date = new Date();
-        setFecha(`${date.getFullYear}-${date.getMonth}-${date.getDate}`);
-        setHora(`${date.getHours}:${date.getMinutes}`);
-
-
+        createDate();
         dbProducts().then(data => { setProducts(data) })
     }, []);
 
@@ -33,7 +56,7 @@ function Ticket() {
             <h2 className="ticket-title">Ticket</h2>
             <p className="ticket-user">Le atiende {contextUser.name}</p>
             <p>Fecha: {fecha} {hora}</p>
-            <TicketForm products={products} setSelectedProducts={setSelectedProducts} />
+            <TicketForm products={products} ticketLine={ticketLine} onSetTicketLine={setTicketLine} onAddTicketLine={addTicketLine} />
         </div>
     );
 }
