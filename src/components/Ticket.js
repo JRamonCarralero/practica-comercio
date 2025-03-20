@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAPIData } from "../utils/utils";
 import { useUserContext } from "../context/UserProvider";
 import TicketForm from "./TicketForm";
+import TicketList from "./TicketList";
 import "../css/Ticket.css";
 
 function Ticket() {
@@ -10,6 +11,17 @@ function Ticket() {
         const productsDB = await getAPIData('http://localhost:3333/read/products', 'GET');
         return productsDB;
     }
+
+    const [ticketLine, setTicketLine] = useState({
+        product: {},
+        qty: 1
+    });
+    const [products, setProducts] = useState([]);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+    const [fecha, setFecha] = useState('');
+    const [hora, setHora] = useState('');
+
+    const { contextUser } = useUserContext();
 
     const createDate = () => {
         const date = new Date();
@@ -25,26 +37,35 @@ function Ticket() {
         setHora(hora);
     };
 
-    //const [product, setProduct] = useState({});
-    const [ticketLine, setTicketLine] = useState({
-        product: "",
-        qty: 1
-    });
-    const [products, setProducts] = useState([]);
-    //const [selectedProducts, setSelectedProducts] = useState([]);
-    const [fecha, setFecha] = useState('');
-    const [hora, setHora] = useState('');
+    const getProduct = (id) => {
+        const product = products.find(product => product._id === id);
+        return product;
+    }
 
-    const { contextUser } = useUserContext();
+    const findSelectedProduct = (id) => {
+        const index = selectedProducts.findIndex(product => product.productId === id);
+        return index;
+    }
 
     const addTicketLine = () => {
-        const data = { ...ticketLine,
-            user: contextUser._id,
-            date: fecha,
-            time: hora
+        const product = getProduct(ticketLine.product);
+        if (findSelectedProduct(product._id) !== -1) {
+            alert('El producto ya fue seleccionado');
+            return;
+        }
+        const data = { 
+            productId: product._id,
+            productName: product.name,
+            productPrice: product.price,
+            qty: ticketLine.qty
          };
-        console.log(data);
+         console.log(data);
+        setSelectedProducts([...selectedProducts, data]);
     };
+
+    const removeSelectedProduct = (ticket) => {
+        setSelectedProducts(selectedProducts.filter(product => product !== ticket));
+    }
 
     useEffect(() => {
         createDate();
@@ -57,6 +78,7 @@ function Ticket() {
             <p className="ticket-user">Le atiende {contextUser.name}</p>
             <p>Fecha: {fecha} {hora}</p>
             <TicketForm products={products} ticketLine={ticketLine} onSetTicketLine={setTicketLine} onAddTicketLine={addTicketLine} />
+            <TicketList selectedProducts={selectedProducts} onRemoveTicket={removeSelectedProduct} />
         </div>
     );
 }

@@ -33,7 +33,7 @@ function ProductsForm({ product, onSetProduct, onAddProduct }) {
                     name="price"
                     placeholder="Price"
                     value={product.price}
-                    onChange={(e) => onSetProduct({...product, price: e.target.value})}
+                    onChange={(e) => onSetProduct({...product, price: Number(e.target.value)})}
                 />
             </div>
             <div className="form-textarea">

@@ -31,7 +31,7 @@ function TicketForm(props) {
                     name="qty"
                     placeholder="Cantidad"
                     value={props.ticketLine.qty}
-                    onChange={(e) => props.onSetTicketLine({...props.ticketLine, qty: e.target.value})}
+                    onChange={(e) => props.onSetTicketLine({...props.ticketLine, qty: Number(e.target.value)})}
                 />
             </div>
             <button className="submit-btn" type="submit">Añadir</button>
