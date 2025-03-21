@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * Renders a table displaying the tickets in the cart.
+ *
+ * @param {Object} props - The properties object.
+ * @param {Array} props.selectedProducts - An array of ticket objects in the cart.
+ * @param {function} props.onRemoveTicket - Function to call when removing a ticket from the cart.
+ */
 function TicketList(props) {
     return (
         <table className="ticket-table">

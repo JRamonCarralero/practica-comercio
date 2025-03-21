@@ -1,5 +1,13 @@
 import React from "react";
 
+/**
+ * Renders a table displaying the products in the cart.
+ *
+ * @param {Object} props - The properties object.
+ * @param {Array} props.products - An array of product objects in the cart.
+ * @param {function} props.onEditProduct - Function to call when editing a product.
+ * @param {function} props.onRemoveProduct - Function to call when removing a product from the cart.
+ */
 function ProductsForm({ products, onEditProduct, onRemoveProduct }) {
     return (
         <table className="products-table" id="products-table">

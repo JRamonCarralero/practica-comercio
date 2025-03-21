@@ -5,8 +5,19 @@ import TicketForm from "./TicketForm";
 import TicketList from "./TicketList";
 import "../css/Ticket.css";
 
+/**
+ * This component renders the ticket page.
+ * 
+ * @returns {JSX.Element}
+ */
 function Ticket() {
 
+    /**
+     * Retrieves the products from the database.
+     * 
+     * @async
+     * @returns {Promise<Object[]>} - An array of product objects.
+     */
     const dbProducts = async () => {
         const productsDB = await getAPIData('http://localhost:3333/read/products', 'GET');
         return productsDB;
@@ -23,6 +34,10 @@ function Ticket() {
 
     const { contextUser } = useUserContext();
 
+    /**
+     * Sets the current date and time in 'fecha' and 'hora' state variables.
+     * The date is formatted as 'YYYY-MM-DD' and time as 'HH:MM'.
+     */
     const createDate = () => {
         const date = new Date();
         const year = date.getFullYear();
@@ -37,16 +52,33 @@ function Ticket() {
         setHora(hora);
     };
 
+    /**
+     * Retrieves a product from the products list by its ID.
+     *
+     * @param {string} id - The ID of the product to retrieve.
+     * @returns {Object|undefined} - The product object if found, otherwise undefined.
+     */
     const getProduct = (id) => {
         const product = products.find(product => product._id === id);
         return product;
     }
 
+    /**
+     * Finds the index of a product in the selectedProducts list by its product ID.
+     *
+     * @param {string} id - The ID of the product to find in the selectedProducts list.
+     * @returns {number} - The index of the product in the selectedProducts list if found, otherwise -1.
+     */
     const findSelectedProduct = (id) => {
         const index = selectedProducts.findIndex(product => product.productId === id);
         return index;
     }
 
+    /**
+     * Adds a new product to the selectedProducts list, if it doesn't exist yet.
+     * It will also reset the ticketLine state to empty product and qty of 1.
+     * If the product is already in the list, it will alert the user and do nothing.
+     */
     const addTicketLine = () => {
         const product = getProduct(ticketLine.product);
         if (findSelectedProduct(product._id) !== -1) {
@@ -65,10 +97,19 @@ function Ticket() {
         setTicketLine({product: {}, qty: 1});
     };
 
+    /**
+     * Removes a product from the selectedProducts list.
+     * @param {Object} ticket - The ticket object to remove from the selectedProducts list.
+     */
     const removeSelectedProduct = (ticket) => {
         setSelectedProducts(selectedProducts.filter(product => product !== ticket));
     }
 
+    /**
+     * Creates a new ticket in the database.
+     * It will take the products in the selectedProducts list and add them to the new ticket.
+     * It will also clean the selectedProducts list and create a new date and hour.
+     */
     const createTicket = async () => {
         const newTicket = {
             userId: contextUser._id,

@@ -7,6 +7,11 @@ import Ticket from './components/Ticket';
 import User from './components/User';
 import { UserProvider } from './context/UserProvider';
 
+/**
+ * The App component renders the entire application.
+ * It wraps the UserProvider and contains the header with links to all pages,
+ * and the main content area with the routes to all pages.
+ */
 function App() {
   return (
     <UserProvider>
