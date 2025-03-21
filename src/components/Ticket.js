@@ -61,10 +61,28 @@ function Ticket() {
          };
          console.log(data);
         setSelectedProducts([...selectedProducts, data]);
+        createDate();
+        setTicketLine({product: {}, qty: 1});
     };
 
     const removeSelectedProduct = (ticket) => {
         setSelectedProducts(selectedProducts.filter(product => product !== ticket));
+    }
+
+    const createTicket = async () => {
+        const newTicket = {
+            userId: contextUser._id,
+            userName: contextUser.name,
+            date: fecha,
+            hour: hora,
+            products: selectedProducts
+        }
+
+        const ticket = await getAPIData('http://localhost:3333/create/ticket', 'POST', JSON.stringify(newTicket));
+        console.log(ticket);
+
+        setSelectedProducts([]);
+        createDate();
     }
 
     useEffect(() => {
@@ -75,10 +93,16 @@ function Ticket() {
     return (
         <div className="ticket-container">
             <h2 className="ticket-title">Ticket</h2>
-            <p className="ticket-user">Le atiende {contextUser.name}</p>
-            <p>Fecha: {fecha} {hora}</p>
+            <p className="ticket-text">Le atiende <strong>{contextUser.name}</strong></p>
+            <p className="ticket-text">Fecha: {fecha} {hora}</p>
             <TicketForm products={products} ticketLine={ticketLine} onSetTicketLine={setTicketLine} onAddTicketLine={addTicketLine} />
             <TicketList selectedProducts={selectedProducts} onRemoveTicket={removeSelectedProduct} />
+            {(selectedProducts.length !== 0) &&
+                <div className="ticket-buttons">
+                    <button className="ticket-btn" onClick={() => setSelectedProducts([])}>Borrar</button>
+                    <button className="ticket-btn" onClick={createTicket}>Guardar</button>
+                </div>
+            }
         </div>
     );
 }

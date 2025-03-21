@@ -12,7 +12,7 @@ function TicketForm(props) {
     return (
         <form className="ticket-form" onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="product">Ticket</label>
+                <label htmlFor="product">Producto</label>
                 <select 
                     name="product"
                     value={props.ticketLine.product}
@@ -25,7 +25,7 @@ function TicketForm(props) {
                 </select>
             </div>
             <div className="form-group">
-                <label htmlFor="qty">Description</label>
+                <label htmlFor="qty">Cantidad</label>
                 <input
                     type="number"
                     name="qty"

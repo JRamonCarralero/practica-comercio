@@ -4,7 +4,7 @@ function TicketList(props) {
     return (
         <table className="ticket-table">
             <thead>
-                <tr>
+                <tr className="table-header-row">
                     <th className="th">Producto</th>
                     <th className="th">Cantidad</th>
                     <th className="th">Precio</th>
@@ -25,6 +25,13 @@ function TicketList(props) {
                     </tr>
                 ))}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan={3} className="td-total">Total:</td>
+                    <td className="td-total-price">{props.selectedProducts.reduce((total, ticket) => total + ticket.qty * ticket.productPrice, 0)} €</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     );
 }

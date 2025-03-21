@@ -66,6 +66,24 @@ app.put('/update/product/:id', async (req, res) => {
     res.json(await db.update(req.params.id, req.body, 'product'))
 })
 
+// Tickets //
+
+app.get('/read/tickets', async (req, res) => {
+    res.json(await db.get({}, 'ticket'))
+})
+
+app.post('/create/ticket', async (req, res) => {
+    res.json(await db.create(req.body, 'ticket'))
+})
+
+app.delete('/delete/ticket/:id', async (req, res) => {
+    res.json(await db.delete(req.params.id, 'ticket'))
+})
+
+app.put('/update/ticket/:id', async (req, res) => {
+    res.json(await db.update(req.params.id, req.body, 'ticket'))
+})
+
 
 // Login //
 
