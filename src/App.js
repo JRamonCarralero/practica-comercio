@@ -9,6 +9,7 @@ import User from './components/User';
 import PrivateRoute from './PrivateRoute';
 import { UserProvider } from './context/UserProvider';
 import Logout from './components/Logout';
+import Billing from './components/Billing';
 
 /**
  * The App component renders the entire application.
@@ -28,19 +29,24 @@ function App() {
             <nav className='app-nav'>
               <ul className='app-nav-list'>
                 <li className='app-nav-item'>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile">Perfil</Link>
                 </li>
                 <li className='app-nav-item'>
                   <Link to="/ticket">Ticket</Link>
                 </li>
                 {isAdmin && (
                   <li className='app-nav-item'>
-                    <Link to="/products">Products</Link>
+                    <Link to="/products">Productos</Link>
                   </li>
                 )}
                 {isAdmin && (
                   <li className='app-nav-item'>
-                    <Link to="/user">User</Link>
+                    <Link to="/user">Usuarios</Link>
+                  </li>
+                )}
+                {isAdmin && (
+                  <li className='app-nav-item'>
+                    <Link to="/billing">Facturación</Link>
                   </li>
                 )}
                 {isLoggedIn && (
@@ -73,6 +79,11 @@ function App() {
               <Route path="/user" element={
                 <PrivateRoute>
                   <User />
+                </PrivateRoute>
+              } />
+              <Route path="/billing" element={
+                <PrivateRoute>
+                  <Billing />
                 </PrivateRoute>
               } />
             </Routes>

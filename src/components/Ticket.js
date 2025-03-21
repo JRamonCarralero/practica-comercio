@@ -116,7 +116,8 @@ function Ticket() {
             userName: contextUser.name,
             date: fecha,
             hour: hora,
-            products: selectedProducts
+            products: selectedProducts,
+            total: selectedProducts.reduce((total, product) => total + product.productPrice * product.qty, 0)
         }
 
         const ticket = await getAPIData('http://localhost:3333/create/ticket', 'POST', JSON.stringify(newTicket));
