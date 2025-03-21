@@ -1,4 +1,5 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAPIData } from "../utils/utils";
 import { useUserContext } from "../context/UserProvider";
 import "../css/Login.css";
@@ -11,19 +12,22 @@ import "../css/Login.css";
  *
  * @returns {JSX.Element} The login form component.
  */
-function Login() {
+function Login({ onSetIsAdmin, onSetIsLoggedIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const { loginUser } = useUserContext();
 
+    const navigate = useNavigate();
+
     /**
      * Handles the form submission event.
-     * Prevents the default form submission behavior, constructs a login
-     * request with the provided email and password, sends it to the server,
-     * and stores the response in session storage as 'user'.
-     *
-     * @async
+     * Prevents the default form submission behavior, sends a
+     * login request to the server, and if the login data is valid,
+     * stores the user in session storage and navigates to the
+     * products page. If the login data is invalid, shows an
+     * alert message.
+     * 
      * @param {Event} e - The form submission event
      */
     const handleSubmit = async (e) => {
@@ -33,8 +37,18 @@ function Login() {
             password: password
         }
         const user = await getAPIData('http://localhost:3333/login', 'POST', JSON.stringify(data));
-        sessionStorage.setItem('user', JSON.stringify(user));
-        loginUser(user);
+        if (user) {
+            sessionStorage.setItem('user', JSON.stringify(user));
+            loginUser(user);
+            if (user.role === 'admin') {
+                onSetIsAdmin(true);
+            }
+            onSetIsLoggedIn(true);
+            navigate('/products')
+        } else {
+            alert('Invalid email or password');
+        }
+        
     };
 
     return (
