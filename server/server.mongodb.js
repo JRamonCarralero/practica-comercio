@@ -9,7 +9,8 @@ export const db = {
     delete: deleteItem,
     update: updateItem,
     findById: findById,
-    loginUser: loginUser
+    loginUser: loginUser,
+    getFilter: getFilter
 }
 
 /**
@@ -106,4 +107,20 @@ async function getItems(filter, collection) {
     const comercioDB = client.db(database);
     const usersCollection = comercioDB.collection('user');
     return await usersCollection.findOne({ email, password })
+  }
+
+/**
+ * Finds all items in the specified collection in the 'comercio' database
+ * that match the given filter.
+ *
+ * @param {object} filter - The filter to apply to find the items.
+ * @param {string} collection - The collection to search the items in.
+ * @returns {Promise<Array<object>>} The found items array, or empty array if no items match the filter.
+ */
+  async function getFilter(filter, collection) {
+    const client = new MongoClient(URI);
+    const comercioDB = client.db(database);
+    const itemsCollection = comercioDB.collection(collection);
+    const response = await itemsCollection.find(filter).toArray()
+    return response;
   }

@@ -84,6 +84,15 @@ app.put('/update/ticket/:id', async (req, res) => {
     res.json(await db.update(req.params.id, req.body, 'ticket'))
 })
 
+app.post('/filter/ticket', async (req, res) => {
+    const params = req.body
+    const filter = {}
+    if (params.userId) filter.userId = params.userId
+    if (params.from === params.to) filter.date = params.from
+    else filter.date = { $gte: params.from, $lte: params.to }
+    res.json(await db.getFilter(filter, 'ticket'))
+})
+
 
 // Login //
 
