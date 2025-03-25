@@ -109,6 +109,10 @@
     & + .table-row {
         border-top: 1px solid black;
     }
+
+    &.selected {
+        background-color: #a3d3ff;
+    }
 }
 
 .td-total {
@@ -132,5 +136,46 @@
     .ticket-btn {
         width: 120px;
         padding: 5px;
+    }
+}
+
+.billing-detail-container {
+    width: 100%;
+    border-top: 2px solid black;
+    padding: 10px;
+
+    .billing-close-container {
+        width: 100%;
+        height: 25px;
+        padding: 2px;
+
+        .billing-close {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid black;
+            margin: 10px auto;
+            float: right;
+            font-weight: bold;
+        }
+    }
+
+    .billing-detail-data {
+        width: 650px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    p {
+        margin-bottom: 5px;
+    }
+
+    .billing-detail-table {
+        width: 650px;
+        margin: 15px auto 0;
+        border-collapse: collapse;
     }
 }

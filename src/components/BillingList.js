@@ -1,7 +1,22 @@
 import React from "react";
 
-function BillingList({ tickets, onSetSelTicket }) {
+/**
+ * BillingList component renders a table displaying a list of billing tickets.
+ * Each ticket displays the employee's name, date, and total amount.
+ * It also includes a button to view the details of each ticket.
+ * The selected ticket is highlighted, and the total amount of all tickets is shown in the footer.
+ *
+ * @param {Array} tickets - The list of ticket objects to display.
+ * @param {Function} onSetSelTicket - Function to call to set the selected ticket.
+ * @param {Object} selTicket - The currently selected ticket object.
+ */
+function BillingList({ tickets, onSetSelTicket, selTicket }) {
 
+    /**
+     * Sets the selected ticket to the given ticket object.
+     *
+     * @param {Object} ticket - The ticket object to set as the selected ticket.
+     */
     const showTicket = (ticket) => {
         onSetSelTicket(ticket);
     };
@@ -18,7 +33,7 @@ function BillingList({ tickets, onSetSelTicket }) {
             </thead>
             <tbody>
                 {tickets.map((ticket) => (
-                    <tr className="table-row" key={ticket._id}>
+                    <tr className={`table-row ${selTicket && ticket._id === selTicket._id ? "selected" : ""}`} key={ticket._id}>
                         <td>{ticket.userName}</td>
                         <td>{ticket.date}</td>
                         <td>{ticket.total} €</td>
