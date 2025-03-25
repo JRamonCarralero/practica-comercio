@@ -29,3 +29,5 @@ En este repositorio se aplica:
 * GitHub para gestión de repositorios
 
 Para la utilización de la app, es necesario crear previamente un usuario en la base de datos con el perfil de "admin", ya que no existe la opción de registro.
+
+El archivo .env contiene la información con la URI de MongoDB y el puerto de acceso al servidor. No está subido a GitHub, se deberá crear.
