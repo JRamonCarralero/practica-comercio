@@ -6,7 +6,7 @@ Repositorio de José Ramón Carralero. Práctica de React.
 
 Consiste en una aplicación web que simula el registro de ventas de un negocio.
 
-Para ello contamos con 2 perfiles, el de usuario (empleado) y el de administrador (jefe). 
+Para ello contamos con 2 perfiles, el de usuario (empleado) y el de administrador (jefe).
 
 Los usuarios podrán realizar 2 funciones:
 
