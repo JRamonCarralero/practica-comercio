@@ -118,7 +118,7 @@ function Products() {
 
     return (
         <div className="products-container">
-            <h2 className="products-title">Products</h2>
+            <h2 className="products-title">Productos</h2>
             <ProductsForm product={product} onSetProduct={setProduct} onAddProduct={addProduct} />
             <ProductsList products={products} onEditProduct={editProduct} onRemoveProduct={removeProduct} />
         </div>
